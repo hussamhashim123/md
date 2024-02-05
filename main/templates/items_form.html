@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/pdf_form.css' %}">
+    <title>Items</title>
+</head>
+
+<body>
+    <div class=" rec parant ">
+        <div class="item-row header-row ">
+            <div class="item header small">Num</div>
+            <div class="item header small">ID</div>
+            <div class="item header wide">Name</div>
+            <div class="item header">FolderID</div>
+            <div class="item header">Debtor</div>
+            <div class="item header">Department</div>
+            <div class="item header small">MenuID</div>
+            <div class="item header wide">Month</div>
+            <div class="item header">Money</div>
+            <div class="item header">Tax</div>
+            <div class="item header">Total</div>
+        </div>
+        {% for item in items %}
+        <div class="item-row ">
+            <div class="counter item small"></div>
+            <div class="item small">{{item.id }}</div>
+            <div class="item wide">{{item.person.name }}</div>
+            <div class="item">{{item.person.folder_id}}</div>
+            <div class="item">{{item.person.debtor }}</div>
+            <div class="item">{{item.menu.department.name }} </div>
+            <div class="item small">{{item.menu.menu_id }}</div>
+            <div class="item wide">{{item.menu.month}}</div>
+            <div class="item money">{{ item.money }}</div>
+            <div class="item tax">{{ item.tax }}</div>
+            <div class="item total">{{ item.total }}</div>
+        </div>
+        {% endfor %}
+        <script>
+            const counterCells = document.querySelectorAll('.counter');
+            counterCells.forEach((cell, index) => {
+                cell.innerText = index + 1;
+            });
+            window.print()
+        </script>
+</body>
+
+</html>

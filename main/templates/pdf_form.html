@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{% static 'admin/pdf_form.css' %}">
+</head>
+
+<body>
+
+    <div class="rec">Menu ID : {{menu.menu_id}}</div>
+    <div class="rec">Department: {{menu.department.name}}</div>
+    <div class="rec">Month: {{menu.month}}</div>
+    <div class=" rec parant ">
+        <div class="item-row header-row ">
+            <div class="item header">Folder ID</div>
+            <div class="item header">الاسم</div>
+            <div class="item header">الدائن</div>
+            <div class="item header">Privet Number</div>
+            <div class="item header">Kind File</div>
+            <div class="item header">المبلغ</div>
+            <div class="item header">الرسم</div>
+            <div class="item header">الامانة</div>
+        </div>
+        {% for item in menu.item_set.all %}
+        <div class="item-row ">
+            <div class="counter"> </div>
+            <div class="item">{{item.person.folder_id }}</div>
+            <div class="item">{{item.person.name }}</div>
+            <div class="item">{{item.person.debtor }}</div>
+            <div class="item">{{item.person.p_num }}</div>
+            <div class="item">{{item.person.kind_file }} </div>
+            <div class="item money">{{ item.money }}</div>
+            <div class="item tax">{{ item.tax }}</div>
+            <div class="item total">{{ item.total }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="item-row header-row">
+        <div class="item header">Money</div>
+        <div class="item header">Tax</div>
+        <div class="item header">Total</div>
+    </div>
+    <div class=" rec parant item-row">
+        <div class="item rec total-money">Money</div>
+        <div class="item rec total-tax">tax</div>
+        <div class="item rec total-total">Total</div>
+    </div>
+    <script>
+        const counterCells = document.querySelectorAll('.counter');
+        counterCells.forEach((cell, index) => {
+            cell.innerText = index + 1;
+        });
+        let totalMoney = 0;
+        let totalTax = 0;
+        let totalTotal = 0;
+        const money = document.querySelectorAll(".money");
+        const tax = document.querySelectorAll(".tax");
+        const total = document.querySelectorAll(".total");
+        money.forEach((el) => {
+            totalMoney += +el.innerText
+        })
+        const moneyElement = document.querySelector(".total-money")
+        moneyElement.innerText = totalMoney
+        tax.forEach((el) => {
+            totalTax += +el.innerText
+        })
+        const taxElement = document.querySelector(".total-tax")
+        taxElement.innerText = totalTax
+        total.forEach((el) => {
+            totalTotal += +el.innerText
+        })
+        const totalElement = document.querySelector(".total-total")
+        totalElement.innerText = totalTotal
+
+        window.print()
+    </script>
+</body>
+
+</html>

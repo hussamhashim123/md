@@ -1,0 +1,19 @@
+table {
+    counter-reset: row-counter;
+  }
+  
+  .form-row {
+    counter-increment: row-counter;
+  }
+  
+  .form-row::before {
+    content: counter(row-counter) ": ";
+    font-weight: bold;
+    margin-top: 21px;
+    display: inline-block;
+  }
+
+
+td.original {
+  display: none;
+}
